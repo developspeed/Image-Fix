@@ -3,7 +3,7 @@ import replicate
 import os
 
 st.set_page_config(
-    page_title="Image Process",
+    page_title="Image Deoldify",
     # page_icon=im,
     layout="wide",
 )
@@ -31,7 +31,7 @@ st.markdown(hide_menu , unsafe_allow_html=True)
 ######################### Frontend UI of the Application #########################
 
 # App Title Name
-st.title("Image Processing")
+st.title("Image Deoldify")
 
 key = st.sidebar.text_input("Enter the Security Key")
 if key == 'image':
