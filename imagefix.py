@@ -4,7 +4,7 @@ import os
 from deta import Deta
 
 st.set_page_config(
-    page_title="Image Deoldify",
+    page_title="B/W Image to Color",
     # page_icon=im,
     layout="wide",
 )
@@ -38,7 +38,7 @@ def getItem():
 ######################### Frontend UI of the Application #########################
 
 # App Title Name
-st.title("Image Deoldify")
+st.title("B/W Image to Color")
 
 key = st.sidebar.text_input("Enter the Security Key")
 auth = getItem()
@@ -62,6 +62,8 @@ if key == auth[1]["secretKey"]:
         st.markdown(language[0]["german"])
 
     st.sidebar.write("__________________________")
+
+
     st.write("_________________________________________________________________________")
     # Uploading image file
     image_file = st.file_uploader("Choose File")
@@ -117,3 +119,24 @@ elif key == "":
 
 else:
     st.sidebar.error("Incorrect Secret Key")
+
+# Magic AI dashboard
+st.write("__________________________________________________________________________________________")
+link = '[Magicaibox](https://www.magicaibox.site/controlpanel/udashboard)'
+html = """
+    <style>
+    a{
+        border-radius:2px;
+        border:1px solid;
+        text-decoration:none;
+        padding:6px;
+        color: black;
+    }
+    a:hover{
+        text-decoration:none;
+        color:red;
+        border:1px solid red;
+    }
+"""
+st.markdown(link, unsafe_allow_html=True)
+st.markdown(html, unsafe_allow_html=True)
