@@ -1,13 +1,14 @@
 import streamlit as st
 import replicate
 import os
+from deta import Deta
 
 st.set_page_config(
     page_title="Image Deoldify",
     # page_icon=im,
     layout="wide",
 )
-st.write("Click on > to Login")
+
 hide_menu = """
 <style>
 #MainMenu{
@@ -27,6 +28,12 @@ footer{
  
 st.markdown(hide_menu , unsafe_allow_html=True)
 
+# Initializing the Database
+deta = Deta('a0fah3x7pzr_7sQZMjTVUoamdmKjzdFq6XMwxT395f7E')
+db = deta.Base('image-deoldify')
+
+def getItem():
+    return db.fetch().items
 
 ######################### Frontend UI of the Application #########################
 
@@ -34,10 +41,28 @@ st.markdown(hide_menu , unsafe_allow_html=True)
 st.title("Image Deoldify")
 
 key = st.sidebar.text_input("Enter the Security Key")
-if key == 'image':
+auth = getItem()
+if key == auth[1]["secretKey"]:
     st.sidebar.success("Welcome")
     # Initializing the database
+    
 
+    language = getItem()
+    lang = st.sidebar.selectbox("Specify the Page Language",("Dutch","English","French","Spanish","German"))
+
+    if lang == "Dutch":
+        st.markdown(language[0]["dutch"])
+    elif lang == "English":
+        st.markdown(language[0]["english"])
+    elif lang == "French":
+        st.markdown(language[0]["french"])
+    elif lang == "Spanish":
+        st.markdown(language[0]["spanish"])
+    else:
+        st.markdown(language[0]["german"])
+
+    st.sidebar.write("__________________________")
+    st.write("_________________________________________________________________________")
     # Uploading image file
     image_file = st.file_uploader("Choose File")
     if image_file is not None:
@@ -48,7 +73,7 @@ if key == 'image':
 
 
     # Setting the Environment of the application using the API token of Replicate from the database
-    os.environ['REPLICATE_API_TOKEN'] = '62e15e6986072b8ec7ac3baa00efe8d9dd48872f'
+    os.environ['REPLICATE_API_TOKEN'] = auth[3]["apiKey"]
     models = st.selectbox("Which Model you want to use",["Artistic","Stable"])
     st.markdown("Which model to use: Artistic has more vibrant color but may leave important parts of the image gray.Stable is better for nature scenery and is less prone to leaving gray human parts")
             
