@@ -148,23 +148,3 @@ elif key == "":
 else:
     st.sidebar.error("Incorrect Secret Key")
 
-# Magic AI dashboard
-st.write("__________________________________________________________________________________________")
-link = '[Magicaibox](https://www.magicaibox.site/controlpanel/udashboard)'
-html = """
-    <style>
-    a{
-        border-radius:2px;
-        border:1px solid;
-        text-decoration:none;
-        padding:6px;
-        color: black;
-    }
-    a:hover{
-        text-decoration:none;
-        color:red;
-        border:1px solid red;
-    }
-"""
-st.markdown(link, unsafe_allow_html=True)
-st.markdown(html, unsafe_allow_html=True)
